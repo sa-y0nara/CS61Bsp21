@@ -23,7 +23,9 @@ public class LinkedListDeque<T> {
         sentinel.after.before = addInFirst;
         sentinel.after = addInFirst;
         this.size++;
-        if (addInFirst.after == sentinel) last = addInFirst;
+        if (addInFirst.after == sentinel) {
+            last = addInFirst;
+        }
     }
 
     /**
@@ -63,8 +65,9 @@ public class LinkedListDeque<T> {
      * @return The item that just be removed.
      */
     public T removeFirst() {
-        if (size == 0) return null;
-        else if (size == 1) {
+        if (size == 0) {
+            return null;
+        } else if (size == 1) {
             Node delete = sentinel.after;
             sentinel.after = sentinel;
             sentinel.before = sentinel;
@@ -85,8 +88,9 @@ public class LinkedListDeque<T> {
      * @return The item that just be removed.
      */
     public T removeLast() {
-        if (size == 0) return null;
-        else if (size == 1) {
+        if (size == 0) {
+            return null;
+        } else if (size == 1) {
             Node delete = sentinel.after;
             sentinel.after = sentinel;
             sentinel.before = sentinel;
@@ -110,8 +114,9 @@ public class LinkedListDeque<T> {
      * @return The item that stored in the place index.
      */
     public T get(int index) {
-        if (index >= size) return null;
-        else {
+        if (index >= size) {
+            return null;
+        } else {
             Node p = sentinel.after;
             int ite = index;
             while (ite > 0) {
@@ -129,8 +134,11 @@ public class LinkedListDeque<T> {
      * @return The .
      */
     public T getRecursiveHelper(int i, Node p) {
-        if (i == 0) return p.item;
-        else return getRecursiveHelper(i - 1, p.after);
+        if (i == 0) {
+            return p.item;
+        } else {
+            return getRecursiveHelper(i - 1, p.after);
+        }
     }
 
     /**
@@ -146,9 +154,9 @@ public class LinkedListDeque<T> {
      * Prints the items in the deque from first to last, separated by a space.
      * Once all the items have been printed, print out a new line.
      */
-    public void printDeque(){
+    public void printDeque() {
         for (int i = 0; i < size; i++) {
-            System.out.print(get(i)+" ");
+            System.out.print(get(i) + " ");
         }
         System.out.println();
     }

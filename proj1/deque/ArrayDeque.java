@@ -24,7 +24,7 @@ public class ArrayDeque<T> {
             System.arraycopy(array, 0, newArray, array.length - front, last + 1);
         }
         front = 0;
-        last = size-1;
+        last = size - 1;
     }
 
     /**
