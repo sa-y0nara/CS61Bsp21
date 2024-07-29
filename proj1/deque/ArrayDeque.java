@@ -1,5 +1,6 @@
 package deque;
 
+
 public class ArrayDeque<T> {
     int size;
     int front;
@@ -15,26 +16,49 @@ public class ArrayDeque<T> {
         return this.size == 0;
     }
 
+    private void resize(T[] newArray) {
+        if (front <= last) {
+            System.arraycopy(array, front, newArray, 0, size);
+        } else {
+            System.arraycopy(array, front, newArray, 0, array.length - front);
+            System.arraycopy(array, 0, newArray, array.length - front, last + 1);
+        }
+        front = 0;
+        last = size-1;
+    }
+
     /**
      * The method that resizes the array to make the size bigger.
      */
     private void resizeBigger() {
         T[] newArray = (T[]) new Object[size * 2];
-        if (front <= last) {
-            System.arraycopy(array, 0, newArray, 0, size);
-        } else {
-            System.arraycopy(array, 0, newArray, 0, last + 1);
-            System.arraycopy(array, front, newArray, newArray.length - array.length + front, array.length - size);
-        }
+        resize(newArray);
         array = newArray;
     }
 
     /**
      * The method that check if the array needs to resize.
      */
-    private void checkToResizeBigger(int a) {
-        if (front == last) {
+    private void checkToResizeBigger() {
+        if (size == array.length) {
             resizeBigger();
+        }
+    }
+
+
+    /**
+     * The method that pointing the next front place and change the old front index.
+     */
+    private void changeAddFront() {
+        if (size == 0) {
+            front = 0;
+            last = 0;
+        } else {
+            if (front == 0) {
+                front = array.length - 1;
+            } else {
+                front--;
+            }
         }
     }
 
@@ -44,18 +68,26 @@ public class ArrayDeque<T> {
      * @param item The item that you wanted to add to deque.
      */
     public void addFirst(T item) {
-        if (size == 0) {
-            array[0] = item;
-        } else {
-            if (front == 0) {
-                front = array.length - 1;
-            } else {
-                front--;
-            }
-            checkToResizeBigger(0);
-            array[front] = item;
-        }
+        checkToResizeBigger();
+        changeAddFront();
+        array[front] = item;
         size++;
+    }
+
+    /**
+     * The method that pointing the next last place and change the old last index.
+     */
+    private void changeAddLast() {
+        if (size == 0) {
+            front = 0;
+            last = 0;
+        } else {
+            if (last == array.length) {
+                last = 0;
+            } else {
+                last++;
+            }
+        }
     }
 
     /**
@@ -64,34 +96,28 @@ public class ArrayDeque<T> {
      * @param item The item that you wanted to add to deque.
      */
     public void addLast(T item) {
-        if (size == 0) {
-            array[0] = item;
-        } else {
-            if (last == array.length - 1) {
-
-                last = 0;
-            } else {
-                last++;
-            }
-
-        }
+        checkToResizeBigger();
+        changeAddLast();
+        array[last] = item;
+        size++;
     }
 
     /**
      * The method that return the value of the item in where is index.
+     *
      * @param index The number of index.
      * @return The value of the item in where is index.
      */
     public T get(int index) {
-        if (index > size || index < 0) return null;
-        int iterator = index;
-        int p = front;
-        while (iterator != 0) {
-            if (p < array.length) p++;
-            else p = 0;
-            iterator--;
+        if (index > size || index < 0) {
+            return null;
         }
-        return array[index];
+        int p = front;
+        p += index;
+        if (p >= array.length) {
+            p -= array.length;
+        }
+        return array[p];
     }
 
     /**
@@ -101,9 +127,12 @@ public class ArrayDeque<T> {
         int iterator = size;
         int p = front;
         while (iterator != 0) {
-            if (p < array.length) p++;
-            else p = 0;
-            System.out.print(array[p]+" ");
+            System.out.print(array[p] + " ");
+            if (p < array.length) {
+                p++;
+            } else {
+                p = 0;
+            }
             iterator--;
         }
         System.out.println();
@@ -119,20 +148,79 @@ public class ArrayDeque<T> {
     }
 
     /**
-     * The method that will remove the item in "first" place and return the value of it.
+     * The method that called by checkToResizeSmaller to resize the array to make it smaller.
+     */
+    private void resizeSmaller() {
+        T[] newArray = (T[]) new Object[array.length / 2];
+        resize(newArray);
+        array = newArray;
+    }
+
+    /**
+     * Check if the array need to be resized.
+     */
+    private void checkToResizeSmaller() {
+        if (4 * size < array.length && array.length > 8) {
+            resizeSmaller();
+        }
+    }
+
+    /**
+     * When remove the value in "front" index, the method will be called.
+     * It will update the "front" index.
+     */
+    private void changeRemoveFirst() {
+        if (front == array.length - 1) {
+            front = 0;
+        } else {
+            front++;
+        }
+    }
+
+    /**
+     * The method that will remove the item in "front" place and return the value of it.
      *
      * @return The value of the item that just be removed.
      */
     public T removeFirst() {
-        if (size == 0) return null;
-        T value = array[front];
+        if (size == 0) {
+            return null;
+        }
+        T returnValue = array[front];
         array[front] = null;
-        if (front == array.length - 1) {
-            front = 0;
-        } else front++;
-        return value;
+        changeRemoveFirst();
+        size--;
+        checkToResizeSmaller();
+        return returnValue;
     }
 
+    /**
+     * Update the last index.
+     */
+    private void changeRemoveLast() {
+        if (last == 0) {
+            last = array.length - 1;
+        } else {
+            last--;
+        }
+    }
+
+    /**
+     * The method that will remove the item in "last" place and return the value of it.
+     *
+     * @return The value of the item that just be removed.
+     */
+    public T removeLast() {
+        if (size == 0) {
+            return null;
+        }
+        T returnValue = array[last];
+        array[last] = null;
+        changeRemoveLast();
+        size--;
+        checkToResizeSmaller();
+        return returnValue;
+    }
 
     /**
      * Construct method for arraydeque.
