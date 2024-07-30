@@ -1,7 +1,7 @@
 package deque;
 
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T>{
     int size;
     int front;
     int last;
@@ -12,6 +12,7 @@ public class ArrayDeque<T> {
      *
      * @return The true or not of the problem.
      */
+    @Override
     public boolean isEmpty() {
         return this.size == 0;
     }
