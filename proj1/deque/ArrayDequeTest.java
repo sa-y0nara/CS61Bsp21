@@ -155,4 +155,21 @@ public class ArrayDequeTest {
             assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
         }
     }
+
+    @Test
+    public void smallLDequeTest() {
+        System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
+
+        ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
+        for (int i = 0; i < 9; i++) {
+            lld1.addLast(i);
+        }
+
+        lld1.removeLast();
+
+            assertEquals("Should have the same value", 7, (double) lld1.get(7), 0.0);
+
+
+
+    }
 }

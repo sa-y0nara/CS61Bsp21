@@ -83,7 +83,7 @@ public class ArrayDeque<T> implements Deque<T> {
             front = 0;
             last = 0;
         } else {
-            if (last == array.length) {
+            if (last == array.length - 1) {
                 last = 0;
             } else {
                 last++;
