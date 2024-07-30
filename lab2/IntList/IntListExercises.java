@@ -57,14 +57,20 @@ public class IntListExercises {
      * the first digit of x.
      */
     public static boolean firstDigitEqualsLastDigit(int x) {
-        if (x % 10 == 0) {
+        if (x % 10 == 0 && x != 0) {
             return false;
+        }
+        if (x == 0) {
+            return true;
         }
         int lastDigit = x % 10;
         while (x > 10) {
             x = x / 10;
         }
         int firstDigit = x % 10;
+        if (x == 10) {
+            firstDigit = 1;
+        }
         return firstDigit == lastDigit;
     }
 
