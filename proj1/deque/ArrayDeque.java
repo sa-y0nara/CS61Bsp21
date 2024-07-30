@@ -234,7 +234,6 @@ public class ArrayDeque<T> implements Deque<T> {
         this.last = 0;
     }
 
-    @Override
     public Iterator<T> iterator() {
         return null;
     }

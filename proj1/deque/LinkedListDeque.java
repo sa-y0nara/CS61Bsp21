@@ -176,7 +176,6 @@ public class LinkedListDeque<T> implements Deque<T> {
         this.last = newSentinel;
     }
 
-    @Override
     public Iterator<T> iterator() {
         return null;
     }
