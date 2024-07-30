@@ -1,5 +1,6 @@
 package deque;
 
+import java.util.Iterator;
 
 public class ArrayDeque<T> implements Deque<T> {
     int size;
@@ -231,5 +232,10 @@ public class ArrayDeque<T> implements Deque<T> {
         array = (T[]) new Object[8];
         this.front = 0;
         this.last = 0;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return null;
     }
 }
