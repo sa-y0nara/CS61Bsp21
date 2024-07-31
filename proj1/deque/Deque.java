@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public interface Deque<T> {
+public interface Deque<T> extends Iterable<T> {
     void addFirst(T item);
     void addLast(T item);
     boolean isEmpty();
@@ -12,4 +12,5 @@ public interface Deque<T> {
     T removeLast();
     T get(int index);
     Iterator<T> iterator();
+    boolean equals(Object o);
 }

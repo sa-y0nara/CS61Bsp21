@@ -13,7 +13,6 @@ public class ArrayDeque<T> implements Deque<T> {
      *
      * @return The true or not of the problem.
      */
-    @Override
     public boolean isEmpty() {
         return this.size == 0;
     }
@@ -235,6 +234,42 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     public Iterator<T> iterator() {
-        return null;
+        return new IteratorClass();
     }
+
+    private class IteratorClass implements Iterator<T> {
+        int index;
+
+        public IteratorClass() {
+            index = 0;
+        }
+
+        public boolean hasNext() {
+            return index < size;
+        }
+
+        public T next() {
+            size++;
+            return get(index);
+        }
+    }
+
+
+    public boolean equals(Object o) {
+        if (o == null || o.getClass() != ArrayDeque.class) {
+            return false;
+        } else {
+            if (((ArrayDeque<?>) o).size() != this.size()) {
+                return false;
+            } else {
+                for (int i = 0; i < size(); i++) {
+                    if (get(i) != ((ArrayDeque<?>) o).get(i)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+    }
+
 }

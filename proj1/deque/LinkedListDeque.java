@@ -177,6 +177,41 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     public Iterator<T> iterator() {
-        return null;
+        return new IteratorClass();
+    }
+
+    public class IteratorClass implements Iterator<T> {
+        Node p;
+        public IteratorClass() {
+            p = sentinel.after;
+        }
+
+        public boolean hasNext() {
+            if (p == null) {
+                return false;
+            }
+            return p.after != null;
+        }
+
+        public T next() {
+            return p.item;
+        }
+    }
+
+    public boolean equals(Object o) {
+        if (o == null || o.getClass() != LinkedListDeque.class) {
+            return false;
+        } else {
+            if (((LinkedListDeque<?>) o).size() != this.size()) {
+                return false;
+            } else {
+                for (int i = 0; i < size(); i++) {
+                    if (get(i) != ((LinkedListDeque<?>) o).get(i)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
     }
 }
