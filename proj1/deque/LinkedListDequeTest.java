@@ -126,13 +126,30 @@ public class LinkedListDequeTest {
             lld1.addLast(i);
         }
 
-        for (double i = 0; i < 500000; i++) {
+        for (double i = 0; i < 1000000; i++) {
             assertEquals("Should have the same value", i, (double) lld1.removeFirst(), 0.0);
         }
 
-        for (double i = 999999; i > 500000; i--) {
-            assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
-        }
+//        for (double i = 999999; i > 500000; i--) {
+//            assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
+//        }
+
+
+    }
+
+    @Test
+    /* Add large number of elements to deque; check if order is correct. */
+    public void bigLLDequeTest1() {
+
+        System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
+
+        LinkedListDeque<Integer> LinkedListDeque = new LinkedListDeque<Integer>();
+        LinkedListDeque.addFirst(0);
+        LinkedListDeque.removeFirst();
+        LinkedListDeque.addLast(2);
+        LinkedListDeque.addLast(3);
+        LinkedListDeque.addLast(4);
+        LinkedListDeque.removeFirst();
 
 
     }

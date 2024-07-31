@@ -7,16 +7,18 @@ public class LinkedListDeque<T> implements Deque<T> {
     private Node sentinel;
     private Node last;
 
-    public class Node {
+    private class Node {
         Node before;
         T item;
         Node after;
     }
 
-    /** Adds an item of type T to the front of the deque.
+    /**
+     * Adds an item of type T to the front of the deque.
      * You can assume that item is never null.
+     *
      * @param item Which will be added into first place.
-    */
+     */
     public void addFirst(T item) {
         Node addInFirst = new Node();
         addInFirst.item = item;
@@ -33,6 +35,7 @@ public class LinkedListDeque<T> implements Deque<T> {
     /**
      * Adds an item of type T to the back of the deque.
      * You can assume that item is never null.
+     *
      * @param item Which will be added into last place.
      */
     public void addLast(T item) {
@@ -47,6 +50,7 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     /**
      * Returns the number of items in the deque.
+     *
      * @return The number of the size of the deque.
      */
     public int size() {
@@ -56,6 +60,7 @@ public class LinkedListDeque<T> implements Deque<T> {
     /**
      * Removes and returns the item at the front of the deque.
      * If no such item exists, returns null.
+     *
      * @return The item that just be removed.
      */
     public T removeFirst() {
@@ -66,6 +71,7 @@ public class LinkedListDeque<T> implements Deque<T> {
             sentinel.after = sentinel;
             sentinel.before = sentinel;
             size = 0;
+            last = sentinel;
             return delete.item;
         } else {
             Node delete = sentinel.after;
@@ -79,6 +85,7 @@ public class LinkedListDeque<T> implements Deque<T> {
     /**
      * Removes and returns the item at the back of the deque.
      * If no such item exists, returns null.
+     *
      * @return The item that just be removed.
      */
     public T removeLast() {
@@ -105,6 +112,7 @@ public class LinkedListDeque<T> implements Deque<T> {
      * Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth.
      * If no such item exists, returns null.
      * Must not alter the deque!
+     *
      * @return The item that stored in the place index.
      */
     public T get(int index) {
@@ -123,6 +131,7 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     /**
      * The helper for method getRecursive.
+     *
      * @param i The .
      * @param p The .
      * @return The .
@@ -137,6 +146,7 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     /**
      * The method the get item that stored in index.
+     *
      * @param index The .
      * @return The .
      */
@@ -168,12 +178,26 @@ public class LinkedListDeque<T> implements Deque<T> {
         this.last = newSentinel;
     }
 
+    public boolean contain(Object c) {
+        if (size() == 0 || c.getClass() != get(0).getClass()) {
+            return false;
+        } else {
+            for (int i = 0; i < size(); i++) {
+                if (this.get(i) == c) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public Iterator<T> iterator() {
         return new IteratorClass();
     }
 
-    public class IteratorClass implements Iterator<T> {
+    private class IteratorClass implements Iterator<T> {
         Node p;
+
         public IteratorClass() {
             p = sentinel.after;
         }
