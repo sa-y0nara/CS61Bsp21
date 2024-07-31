@@ -4,15 +4,35 @@ import java.util.Iterator;
 
 public interface Deque<T> extends Iterable<T> {
     void addFirst(T item);
+
     void addLast(T item);
+
     default boolean isEmpty() {
         return size() == 0;
     }
+
     int size();
+
     void printDeque();
+
     T removeFirst();
+
     T removeLast();
+
     T get(int index);
+
     Iterator<T> iterator();
-    boolean equals(Object o);
+
+    default boolean contain(Object c) {
+        if (size() == 0 || c.getClass() != get(0).getClass()) {
+            return false;
+        } else {
+            for (int i = 0; i < size(); i++) {
+                if (this.get(i) == c) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

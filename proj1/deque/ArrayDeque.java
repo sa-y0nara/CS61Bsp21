@@ -246,22 +246,13 @@ public class ArrayDeque<T> implements Deque<T> {
         }
     }
 
-    public boolean contain(Object c) {
-        if (size() == 0 || c.getClass() != get(0).getClass()) {
-            return false;
-        } else {
-            for (int i = 0; i < size(); i++) {
-                if (this.get(i) == c) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-
     public boolean equals(Object o) {
-        if (o == null || (o.getClass() != ArrayDeque.class && o.getClass() != LinkedListDeque.class)) {
+        if (o == null) {
+            return false;
+        }
+        boolean a = o.getClass() != ArrayDeque.class;
+        boolean b = o.getClass() != LinkedListDeque.class;
+        if (a && b) {
             return false;
         } else {
             if (o == this) {
