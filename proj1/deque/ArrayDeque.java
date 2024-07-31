@@ -3,19 +3,10 @@ package deque;
 import java.util.Iterator;
 
 public class ArrayDeque<T> implements Deque<T> {
-    int size;
-    int front;
-    int last;
-    T[] array;
-
-    /**
-     * The method that shows if the deque is empty.
-     *
-     * @return The true or not of the problem.
-     */
-    public boolean isEmpty() {
-        return this.size == 0;
-    }
+    private int size;
+    private int front;
+    private int last;
+    private T[] array;
 
     private void resize(T[] newArray) {
         if (front <= last) {
@@ -240,7 +231,7 @@ public class ArrayDeque<T> implements Deque<T> {
     private class IteratorClass implements Iterator<T> {
         int index;
 
-        public IteratorClass() {
+        IteratorClass() {
             index = 0;
         }
 
@@ -249,21 +240,22 @@ public class ArrayDeque<T> implements Deque<T> {
         }
 
         public T next() {
-            size++;
-            return get(index);
+            T returnValue = get(index);
+            index++;
+            return returnValue;
         }
     }
 
 
     public boolean equals(Object o) {
-        if (o == null || o.getClass() != ArrayDeque.class) {
+        if (o == null || (o.getClass() != ArrayDeque.class && o.getClass() != LinkedListDeque.class)) {
             return false;
         } else {
-            if (((ArrayDeque<?>) o).size() != this.size()) {
+            if (((Deque<?>) o).size() != this.size()) {
                 return false;
             } else {
                 for (int i = 0; i < size(); i++) {
-                    if (get(i) != ((ArrayDeque<?>) o).get(i)) {
+                    if (get(i) != ((Deque<?>) o).get(i)) {
                         return false;
                     }
                 }

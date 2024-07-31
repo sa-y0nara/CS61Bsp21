@@ -10,7 +10,7 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
     }
 
     public T max() {
-        if (size == 0) {
+        if (size() == 0) {
             return null;
         } else {
             T max = this.get(0);

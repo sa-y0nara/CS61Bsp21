@@ -46,14 +46,6 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     /**
-     * Returns true if deque is empty, false otherwise.
-     * @return Which said that the deque is or isn't empty.
-     */
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    /**
      * Returns the number of items in the deque.
      * @return The number of the size of the deque.
      */
@@ -135,7 +127,7 @@ public class LinkedListDeque<T> implements Deque<T> {
      * @param p The .
      * @return The .
      */
-    public T getRecursiveHelper(int i, Node p) {
+    private T getRecursiveHelper(int i, Node p) {
         if (i == 0) {
             return p.item;
         } else {
@@ -194,19 +186,21 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
 
         public T next() {
-            return p.item;
+            Node a = p;
+            p = p.after;
+            return a.item;
         }
     }
 
     public boolean equals(Object o) {
-        if (o == null || o.getClass() != LinkedListDeque.class) {
+        if (o == null || (o.getClass() != ArrayDeque.class && o.getClass() != LinkedListDeque.class)) {
             return false;
         } else {
-            if (((LinkedListDeque<?>) o).size() != this.size()) {
+            if (((Deque<?>) o).size() != this.size()) {
                 return false;
             } else {
                 for (int i = 0; i < size(); i++) {
-                    if (get(i) != ((LinkedListDeque<?>) o).get(i)) {
+                    if (get(i) != ((Deque<?>) o).get(i)) {
                         return false;
                     }
                 }
