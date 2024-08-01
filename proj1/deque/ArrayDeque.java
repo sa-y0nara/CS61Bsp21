@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> implements Iterable<T> {
     private int size;
     private int front;
     private int last;
@@ -246,41 +246,40 @@ public class ArrayDeque<T> implements Deque<T> {
         }
     }
 
-    boolean contain(Object c) {
-        if (size() == 0 || c.getClass() != get(0).getClass()) {
-            return false;
-        } else {
-            for (int i = 0; i < size(); i++) {
-                if (get(i).equals(c)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     public boolean equals(Object o) {
         if (o == null) {
             return false;
         }
-        boolean a = o.getClass() != ArrayDeque.class;
-        boolean b = o.getClass() != LinkedListDeque.class;
-        if (a && b) {
+        boolean a = o instanceof ArrayDeque;
+        boolean b = o instanceof LinkedListDeque;
+        if (!a && !b) {
             return false;
         } else {
             if (o == this) {
                 return true;
             }
-            if (((Deque<?>) o).size() != this.size()) {
-                return false;
-            } else {
-                for (int i = 0; i < size(); i++) {
-                    boolean flag = contain(((Deque<?>) o).get(i));
-                    if (!flag) {
-                        return false;
+            if (o instanceof ArrayDeque) {
+                if (((ArrayDeque<?>) o).size() != this.size()) {
+                    return false;
+                } else {
+                    for (int i = 0; i < size(); i++) {
+                        if (!((ArrayDeque<?>) o).get(i).equals(this.get(i))) {
+                            return false;
+                        }
                     }
+                    return true;
                 }
-                return true;
+            } else {
+                if (((LinkedListDeque<?>) o).size() != this.size()) {
+                    return false;
+                } else {
+                    for (int i = 0; i < size(); i++) {
+                        if (!((LinkedListDeque<?>) o).get(i).equals(this.get(i))) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
             }
         }
     }
