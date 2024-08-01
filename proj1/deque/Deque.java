@@ -28,7 +28,7 @@ public interface Deque<T> extends Iterable<T> {
             return false;
         } else {
             for (int i = 0; i < size(); i++) {
-                if (this.get(i) == c) {
+                if (get(i).equals(c)) {
                     return true;
                 }
             }
