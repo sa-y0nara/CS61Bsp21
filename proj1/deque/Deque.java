@@ -23,16 +23,5 @@ public interface Deque<T> extends Iterable<T> {
 
     Iterator<T> iterator();
 
-    default boolean contain(Object c) {
-        if (size() == 0 || c.getClass() != get(0).getClass()) {
-            return false;
-        } else {
-            for (int i = 0; i < size(); i++) {
-                if (get(i).equals(c)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+    boolean equals(Object o);
 }
