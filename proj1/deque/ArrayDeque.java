@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private int size;
     private int front;
     private int last;
@@ -250,31 +250,18 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
         if (o == null) {
             return false;
         }
-        boolean a = o instanceof ArrayDeque;
-        boolean b = o instanceof LinkedListDeque;
-        if (!a && !b) {
+        boolean a = o instanceof Deque;
+        if (!a) {
             return false;
         } else {
             if (o == this) {
                 return true;
-            }
-            if (o instanceof ArrayDeque) {
-                if (((ArrayDeque<?>) o).size() != this.size()) {
-                    return false;
-                } else {
-                    for (int i = 0; i < size(); i++) {
-                        if (!((ArrayDeque<?>) o).get(i).equals(this.get(i))) {
-                            return false;
-                        }
-                    }
-                    return true;
-                }
             } else {
-                if (((LinkedListDeque<?>) o).size() != this.size()) {
+                if (((Deque<?>) o).size() != this.size()) {
                     return false;
                 } else {
                     for (int i = 0; i < size(); i++) {
-                        if (!((LinkedListDeque<?>) o).get(i).equals(this.get(i))) {
+                        if (!((Deque<?>) o).get(i).equals(this.get(i))) {
                             return false;
                         }
                     }
@@ -283,5 +270,6 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
             }
         }
     }
-
 }
+
+
