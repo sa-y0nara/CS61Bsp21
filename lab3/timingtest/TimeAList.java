@@ -37,7 +37,7 @@ public class TimeAList {
         AList<Integer> Ns = new AList<>();
         AList<Double> time = new AList<>();
         int a = 1000;
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 8; i++) {
             AList<Integer> test = new AList<>();
             time.addLast(test(a,test));
             Ns.addLast(a);
